@@ -9,8 +9,10 @@ import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
 
-export const QuizContainer = styled.div`
+const QuizContainer = styled.div`
   width: 100%;
   max-width: 350px;
   padding-top: 45px;
@@ -28,15 +30,16 @@ export default function Home() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <Head>
-        <title>AluraQuiz</title>
+        <title>{db.title}</title>
       </Head>
       <QuizContainer>
         <QuizLogo />
         <Widget>
           <Widget.Header>
-            <h1>The legend of zelda</h1>
+            <h1>{db.title}</h1>
           </Widget.Header>
           <Widget.Content>
+            <p>{db.description}</p>
             <form
               onSubmit={(event) => {
                 event.preventDefault();
@@ -44,21 +47,22 @@ export default function Home() {
                 console.log('Fazendo uma submissão por meio do react');
               }}
             >
-              <input
-                onChange={(event) => {
-                  setName(event.target.value);
-                }}
+              <Input
+                name='nomeDoUsuario'
+                onChange={(event) => setName(event.target.value)}
                 placeholder='Diz ai seu nome'
+                value={name}
               />
-              <button
+              <Button
                 type='submit'
                 disabled={name.length === 0 || name.length > 100}
               >
-                Jogar {name}
-              </button>
+                {`Jogar ${name}`}
+              </Button>
             </form>
           </Widget.Content>
         </Widget>
+
         <Widget>
           <Widget.Content>
             <h1>Quizes da Galera</h1>
