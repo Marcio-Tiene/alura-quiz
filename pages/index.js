@@ -10,13 +10,6 @@ import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
 
-// const BackgroundImage = styled.div`
-//   background-image: url(${db.bg});
-//   flex: 1;
-//   background-size: cover;
-//   background-position: center;
-// `;
-
 export const QuizContainer = styled.div`
   width: 100%;
   max-width: 350px;
@@ -35,7 +28,7 @@ export default function Home() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <Head>
-        <title>AluraQuiz - Modelo Base</title>
+        <title>AluraQuiz</title>
       </Head>
       <QuizContainer>
         <QuizLogo />
@@ -45,24 +38,23 @@ export default function Home() {
           </Widget.Header>
           <Widget.Content>
             <form
-              onSubmit={function (infosDoEvento) {
-                infosDoEvento.preventDefault();
+              onSubmit={(event) => {
+                event.preventDefault();
                 router.push(`/quiz?name=${name}`);
                 console.log('Fazendo uma submissão por meio do react');
               }}
             >
               <input
-                onChange={function (infosDoEvento) {
-                  console.log(infosDoEvento.target.value);
-                  // State
-                  // name = infosDoEvento.target.value;
-                  setName(infosDoEvento.target.value);
+                onChange={(event) => {
+                  setName(event.target.value);
                 }}
                 placeholder='Diz ai seu nome'
               />
-              <button type='submit' disabled={name.length === 0}>
-                Jogar
-                {name}
+              <button
+                type='submit'
+                disabled={name.length === 0 || name.length > 100}
+              >
+                Jogar {name}
               </button>
             </form>
           </Widget.Content>
@@ -76,7 +68,7 @@ export default function Home() {
         </Widget>
         <Footer />
       </QuizContainer>
-      <GitHubCorner projectUrl='https://github.com/omariosouto' />
+      <GitHubCorner projectUrl='https://github.com/Marcio-Tiene/alura-quiz' />
     </QuizBackground>
   );
 }
